@@ -4,30 +4,32 @@ import br.com.dineduc.backend.app.AuthApplication
 import br.com.dineduc.backend.app.dto.LoginDtoRequest
 import br.com.dineduc.backend.app.dto.LoginDtoResponse
 import br.com.dineduc.backend.app.dto.RegisterUserDtoRequest
+import br.com.dineduc.backend.app.dto.RegisterUserDtoResponse
+import br.com.dineduc.backend.app.mapper.AuthMapper
+import br.com.dineduc.backend.model.User
 import br.com.dineduc.backend.service.UserService
 import br.com.dineduc.backend.service.impl.TokenService
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
 class AuthApplicationImpl(
     private val userService: UserService,
     private val authenticationManager: AuthenticationManager,
-    private val tokenService: TokenService
+    private val tokenService: TokenService,
+    private val passwordEncoder: PasswordEncoder,
 ): AuthApplication {
     override fun createUser(registerUserDtoRequest: RegisterUserDtoRequest): Boolean {
-        return userService.createUser(registerUserDtoRequest)
+        userService.createUserStudent(AuthMapper.registerToUser(registerUserDtoRequest,passwordEncoder), registerUserDtoRequest.inviteCode)
+        return true
     }
 
-    override fun loginUser(loginDtoRequest: LoginDtoRequest): LoginDtoResponse {
-        val usernamePasswordAuthenticationToken =
-            UsernamePasswordAuthenticationToken(loginDtoRequest.username, loginDtoRequest.password)
+    override fun loginUser(usernamePasswordAuthenticationToken: UsernamePasswordAuthenticationToken): LoginDtoResponse {
 
         val authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken)
 
-        val token: String = tokenService.generateToken(authentication)
-
-        return LoginDtoResponse("Bearer", token)
+        return LoginDtoResponse("Bearer", tokenService.generateToken(authentication))
     }
 }

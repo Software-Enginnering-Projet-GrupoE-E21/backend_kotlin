@@ -28,10 +28,13 @@ dependencies {
     implementation("org.projectlombok:lombok")
     implementation("mysql:mysql-connector-java:8.0.15")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("com.h2database:h2")
+    implementation("org.hibernate:hibernate-core")
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.5.6")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:2.5.6")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
     testImplementation("org.springframework.security:spring-security-test:5.5.1")
+
 }
 
 tasks.withType<KotlinCompile> {

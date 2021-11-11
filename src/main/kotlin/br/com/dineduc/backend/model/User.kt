@@ -9,28 +9,30 @@ import javax.persistence.*
 
 
 @Entity
-@RequiredArgsConstructor
 data class User(
     @Id
     @GeneratedValue
     @Getter
-    val id: Long,
-    val firstname: String,
-    val lastname: String,
-    val emailAddress: String,
-    val document: String,
-    val birthdate: Date,
-    val pass: String,
-    val enabled: Boolean,
+    var id: Long,
+    var firstname: String,
+    var lastname: String,
+    var emailAddress: String,
+    var document: String,
+    var birthdate: Date,
+    var pass: String,
+    var enabled: Boolean,
     @ManyToMany(fetch = FetchType.EAGER)
-    val roles: Set<Roles>
-) : UserDetails {
+    var roles: Set<Roles>,
+    @OneToOne(fetch = FetchType.LAZY)
+    var organization: Organization?
+) : UserDetails, BaseEntity() {
 
-    constructor() : this(0,  "" , "", "", "", Date(), "",  true, setOf() ) {}
+    constructor() : this(0,  "" , "", "", "", Date(), "",  true, setOf(), null ) {}
 
     override fun getAuthorities(): Collection<GrantedAuthority?> {
         return this.roles
     }
+
 
     override fun getPassword(): String {
         return this.pass
@@ -54,10 +56,8 @@ data class User(
     }
 
     override fun isEnabled(): Boolean {
-        return true
+        return this.enabled
     }
-
-
 
 }
 

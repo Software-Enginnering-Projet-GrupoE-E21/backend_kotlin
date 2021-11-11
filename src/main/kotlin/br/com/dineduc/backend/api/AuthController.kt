@@ -4,9 +4,9 @@ import br.com.dineduc.backend.app.AuthApplication
 import br.com.dineduc.backend.app.dto.LoginDtoRequest
 import br.com.dineduc.backend.app.dto.LoginDtoResponse
 import br.com.dineduc.backend.app.dto.RegisterUserDtoRequest
+import br.com.dineduc.backend.app.mapper.AuthMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import javax.annotation.security.PermitAll
 import javax.validation.Valid
 
 
@@ -27,7 +27,7 @@ class AuthController (
     @PostMapping("/login")
     fun login(@Valid @RequestBody loginDtoRequest: LoginDtoRequest):
             ResponseEntity<LoginDtoResponse> {
-        val response = authApplication.loginUser(loginDtoRequest)
+        val response = authApplication.loginUser(AuthMapper.loginToUserPasswordAuthentication(loginDtoRequest))
         return ResponseEntity.ok(response)
     }
 

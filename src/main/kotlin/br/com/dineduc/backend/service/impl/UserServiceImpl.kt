@@ -2,8 +2,10 @@ package br.com.dineduc.backend.service.impl
 
 import br.com.dineduc.backend.app.dto.RegisterUserDtoRequest
 import br.com.dineduc.backend.handler.exception.RegisterErrorException
+import br.com.dineduc.backend.model.Organization
 import br.com.dineduc.backend.model.Roles
 import br.com.dineduc.backend.model.User
+import br.com.dineduc.backend.repository.OrganizationRepository
 import br.com.dineduc.backend.repository.RolesRepository
 import br.com.dineduc.backend.repository.UserRepository
 import br.com.dineduc.backend.service.UserService
@@ -15,23 +17,39 @@ import java.text.SimpleDateFormat
 class UserServiceImpl (
     private val rolesRepository: RolesRepository,
     private val userRepository: UserRepository,
-    private val passwordEncoder: PasswordEncoder,
+    private val organizationRepository: OrganizationRepository
         ) : UserService{
 
-    override fun createUser(registerUserDtoRequest: RegisterUserDtoRequest): Boolean {
-        val userExists: User? = userRepository.getUserByEmailAddressOrDocument(registerUserDtoRequest.emailAddress, registerUserDtoRequest.document)
+    override fun createUser(user: User): User {
+        return userRepository.save(user)
+    }
+
+    override fun createUserStudent(user: User, inviteCode: String): User {
+        val organization: Organization? = organizationRepository.getOrganizationByInvitationCode(inviteCode)
+        organization?.let {
+            return createUserStudentOrganization(user, it)
+        }
+        throw RegisterErrorException("Organization is not allowed to register more users", "Organization error")
+    }
+
+    private fun createUserStudentOrganization(user: User, organization: Organization): User {
+        val userExists: User? = userRepository.getUserByEmailAddressOrDocument(user.emailAddress, user.document)
         if (userExists != null) {
             throw RegisterErrorException("Email address or document already in use", "Register error")
         }
 
-        val finalUser = User(0, registerUserDtoRequest.firstName, registerUserDtoRequest.lastName, registerUserDtoRequest.emailAddress,
-        registerUserDtoRequest.document, SimpleDateFormat("yyyy-MM-dd").parse(registerUserDtoRequest.birthdate) , passwordEncoder.encode(registerUserDtoRequest.password),  true, getStudentRole())
+        user.organization = organization
 
-        userRepository.save(finalUser)
+        val totalUsers = userRepository.getTotalUsersByOrganizationId(organization)
 
-        return true
+        if(organization.active && totalUsers > organization.maxStudents){
+            throw RegisterErrorException("Organization is not allowed to register more users", "Organization error")
+        }
+
+        user.roles = getStudentRole()
+
+        return createUser(user)
     }
-
     private fun getStudentRole () : Set<Roles> {
         var roles: Set<Roles> = rolesRepository.getStudentRoles()
 
