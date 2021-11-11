@@ -29,16 +29,16 @@ jobs:
       run: ./gradlew build
     
     - name: Upload artifact
-    uses: PeerXu/upload-asset@v1
-    with:
-      file: build/libs/backend-0.0.1-SNAPSHOT.war
-      os: linux
-      arch: amd64
-      with_tag: true
-      with_sha1: true
-      suffix: .war
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: PeerXu/upload-asset@v1
+      with:
+        file: build/libs/backend-0.0.1-SNAPSHOT.war
+        os: linux
+        arch: amd64
+        with_tag: true
+        with_sha1: true
+        suffix: .war
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
