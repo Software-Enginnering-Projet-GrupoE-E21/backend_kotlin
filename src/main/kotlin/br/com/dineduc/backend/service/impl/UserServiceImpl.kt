@@ -12,6 +12,7 @@ import br.com.dineduc.backend.service.UserService
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class UserServiceImpl (
@@ -38,6 +39,10 @@ class UserServiceImpl (
             throw RegisterErrorException("Email address or document already in use", "Register error")
         }
 
+        if (user.birthdate >= Date()){
+            throw RegisterErrorException("Birthdate must be before than today", "Register error")
+        }
+
         user.organization = organization
 
         val totalUsers = userRepository.getTotalUsersByOrganizationId(organization)
@@ -50,6 +55,7 @@ class UserServiceImpl (
 
         return createUser(user)
     }
+
     private fun getStudentRole () : Set<Roles> {
         var roles: Set<Roles> = rolesRepository.getStudentRoles()
 
