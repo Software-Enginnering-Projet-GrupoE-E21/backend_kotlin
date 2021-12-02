@@ -8,7 +8,7 @@ import javax.persistence.MappedSuperclass
 
 
 @MappedSuperclass
-abstract class BaseEntity {
+abstract class BaseCMSEntity {
     @Column(updatable = false)
     @CreationTimestamp
     private val createdAt: LocalDateTime? = null
@@ -16,4 +16,9 @@ abstract class BaseEntity {
     @UpdateTimestamp
     private val updatedAt: LocalDateTime? = null
 
+    private val publishedAt: LocalDateTime? = null
+
+    private val createdBy: Long? = null
+
+    private val updatedBy: Long? = null
 }

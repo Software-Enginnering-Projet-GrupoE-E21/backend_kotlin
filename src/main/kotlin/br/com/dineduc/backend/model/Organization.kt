@@ -5,27 +5,26 @@ import lombok.RequiredArgsConstructor
 import org.hibernate.annotations.Formula
 import javax.persistence.*
 
-@Entity
+@Entity(name = "organizations")
 data class Organization (
     @Id
-    @GeneratedValue
     @Getter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
     var legalName: String,
-    var fantasyName: String,
+    var name: String,
     var document: String,
-    var address: String,
-    var addressNumber: String,
-    var addressExtra: String,
-    var state : String,
-    var city : String,
-    var active : Boolean,
+    var street: String,
+    var number: String,
+    var addressExtra: String?,
+    var state : String?,
+    var city : String?,
+    var enabled : Boolean,
     var maxStudents: Int,
-    var invitationCode: String,
+    var inviteCode: String,
 
-) : BaseEntity() {
+    ) : BaseCMSEntity() {
     constructor() : this(0, "" ,"" ,"" ,"" ,"" ,"" ,"" ,"" , false, 0, "") {
 
     }
-
 }

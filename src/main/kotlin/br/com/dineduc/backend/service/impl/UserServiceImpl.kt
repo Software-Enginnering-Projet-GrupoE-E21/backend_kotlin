@@ -1,6 +1,5 @@
 package br.com.dineduc.backend.service.impl
 
-import br.com.dineduc.backend.app.dto.RegisterUserDtoRequest
 import br.com.dineduc.backend.handler.exception.RegisterErrorException
 import br.com.dineduc.backend.model.Organization
 import br.com.dineduc.backend.model.Roles
@@ -9,9 +8,7 @@ import br.com.dineduc.backend.repository.OrganizationRepository
 import br.com.dineduc.backend.repository.RolesRepository
 import br.com.dineduc.backend.repository.UserRepository
 import br.com.dineduc.backend.service.UserService
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.text.SimpleDateFormat
 import java.util.*
 
 @Service
@@ -47,7 +44,7 @@ class UserServiceImpl (
 
         val totalUsers = userRepository.getTotalUsersByOrganizationId(organization)
 
-        if(organization.active && totalUsers > organization.maxStudents){
+        if(organization.enabled && totalUsers > organization.maxStudents){
             throw RegisterErrorException("Organization is not allowed to register more users", "Organization error")
         }
 

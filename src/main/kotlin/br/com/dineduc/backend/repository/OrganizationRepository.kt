@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface OrganizationRepository : CrudRepository<Organization,Long> {
-    @Query("SELECT o FROM Organization o WHERE o.invitationCode = :invitationCode")
+    @Query("SELECT o FROM organizations o WHERE o.inviteCode = :invitationCode")
     fun getOrganizationByInvitationCode(@Param("invitationCode") invitationCode: String?): Organization?
 
 }
