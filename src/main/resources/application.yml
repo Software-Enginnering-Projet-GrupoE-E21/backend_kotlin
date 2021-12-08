@@ -23,3 +23,6 @@ dineduc:
     modules-path-url: "/modules"
     lessons-path-url: "/lessons"
     trails-path-url: "/trails"
+  aws:
+    accessKey: "123456"
+    secretKey: "asdfgh"

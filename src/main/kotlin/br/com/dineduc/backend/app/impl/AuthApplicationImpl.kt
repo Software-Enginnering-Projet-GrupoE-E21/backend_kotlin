@@ -7,6 +7,7 @@ import br.com.dineduc.backend.app.dto.RegisterUserDtoRequest
 import br.com.dineduc.backend.app.dto.RegisterUserDtoResponse
 import br.com.dineduc.backend.app.mapper.AuthMapper
 import br.com.dineduc.backend.model.User
+import br.com.dineduc.backend.service.MailSenderService
 import br.com.dineduc.backend.service.UserService
 import br.com.dineduc.backend.service.impl.TokenService
 import org.springframework.security.authentication.AuthenticationManager
@@ -20,9 +21,11 @@ class AuthApplicationImpl(
     private val authenticationManager: AuthenticationManager,
     private val tokenService: TokenService,
     private val passwordEncoder: PasswordEncoder,
+    private val mailSenderService: MailSenderService,
 ): AuthApplication {
     override fun createUser(registerUserDtoRequest: RegisterUserDtoRequest): Boolean {
-        userService.createUserStudent(AuthMapper.registerToUser(registerUserDtoRequest,passwordEncoder), registerUserDtoRequest.inviteCode)
+        val user = userService.createUserStudent(AuthMapper.registerToUser(registerUserDtoRequest,passwordEncoder), registerUserDtoRequest.inviteCode)
+        mailSenderService.sendEmail(AuthMapper.registerUserToMail(user))
         return true
     }
 

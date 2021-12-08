@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${'Olá ' + name}"></p>
+<p>
+    Parabéns! Você se cadastrou no <b>DinEduc</b>!
+</p>
+
+<p>
+    Para confirmar seu e-mail e ativar sua conta por favor, clique no link abaixo:
+</p>
+<p>
+    <a href='${link}' th:text="${link}"></a>
+</p>
+<p>
+    Um abraço, <br />
+</p>
+</body>
+</html>

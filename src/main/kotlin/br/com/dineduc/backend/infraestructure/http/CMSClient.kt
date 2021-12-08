@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping
 
 @FeignClient(name="\${dineduc.cms.name}", url="\${dineduc.cms.base-url}")
 interface CMSClient {
-    @GetMapping("\${dineduc.cms. modules-path-url}")
+    @GetMapping("\${dineduc.cms.modules-path-url}")
     fun getModules() : ModulesVO
 }
