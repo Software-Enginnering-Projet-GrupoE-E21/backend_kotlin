@@ -36,7 +36,7 @@ class MailSenderServiceImpl (
         )
         val context = Context()
         context.setVariables(mail.model)
-        val html = templateEngine.process("email-template", context)
+        val html = templateEngine.process("confirm_email", context)
         helper.setTo(mail.to ?: "")
         helper.setText(html, true)
         helper.setSubject(mail.subject ?: "")
