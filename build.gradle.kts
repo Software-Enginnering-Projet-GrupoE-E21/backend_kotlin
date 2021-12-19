@@ -10,6 +10,7 @@ plugins {
 
 group = "br.com.dineduc"
 version = "0.0.1-SNAPSHOT"
+val springVersion = "2.5.6"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -17,12 +18,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-security:2.5.6")
+    implementation("org.springframework.boot:spring-boot-starter-security:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-web:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-validation:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-webflux:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-mail:$springVersion")
     implementation("org.springframework.security:spring-security-data:5.5.1")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.5.6")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.5.6")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.5.6")
-    implementation("org.springframework.boot:spring-boot-starter-mail:2.2.1.RELEASE")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

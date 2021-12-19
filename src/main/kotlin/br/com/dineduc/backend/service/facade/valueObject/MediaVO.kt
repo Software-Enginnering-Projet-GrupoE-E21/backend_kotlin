@@ -1,13 +1,12 @@
 package br.com.dineduc.backend.service.facade.valueObject
 
-data class BannerVO (
+data class MediaVO (
     val id: Long,
     val name: String,
     val alternativeText: String,
     val caption: String,
     val width: Long? = null,
     val height: Long? = null,
-    val formats: String? = null,
     val hash: String,
     val ext: String,
     val mime: String,

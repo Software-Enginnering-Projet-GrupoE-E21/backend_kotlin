@@ -9,6 +9,6 @@ data class ModuleDto (
     val description : String,
     val published_at: String,
     val trail: TrailDto?,
-    val banner: BannerDto?,
+    val banner: MediaDto?,
     val lessons: List<LessonDto>?
 )
