@@ -30,6 +30,8 @@ class WebSecurityConfig (
         return BCryptPasswordEncoder()
     }
 
+
+
     @Bean
     @Throws(Exception::class)
     override fun authenticationManager(): AuthenticationManager? {
