@@ -21,6 +21,7 @@ dineduc:
     name: "strapi"
     base-url: "http://localhost:1337"
     modules-path-url: "/modules"
+    module-tests-path-url: "/module-tests"
     lessons-path-url: "/lessons"
     trails-path-url: "/trails"
   aws:

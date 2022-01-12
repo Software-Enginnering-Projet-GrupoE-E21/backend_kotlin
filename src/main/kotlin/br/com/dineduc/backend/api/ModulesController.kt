@@ -2,6 +2,7 @@ package br.com.dineduc.backend.api
 
 import br.com.dineduc.backend.app.ModulesApplication
 import br.com.dineduc.backend.app.dto.ModuleDto
+import br.com.dineduc.backend.app.dto.ModuleTestDto
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -23,6 +24,12 @@ class ModulesController (
     @GetMapping("/{id}")
     fun checkRequest(@PathVariable(value = "id")  id: Long) : ResponseEntity<ModuleDto> {
         val response = modulesApplication.getModule(id)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping("/{id}/test")
+    fun getTest(@PathVariable(value = "id")  id: Long) : ResponseEntity<ModuleTestDto> {
+        val response = modulesApplication.getModuleTest(id)
         return ResponseEntity.ok(response)
     }
 

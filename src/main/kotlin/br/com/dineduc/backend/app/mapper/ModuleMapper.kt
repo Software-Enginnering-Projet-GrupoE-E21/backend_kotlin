@@ -1,13 +1,7 @@
 package br.com.dineduc.backend.app.mapper
 
-import br.com.dineduc.backend.app.dto.MediaDto
-import br.com.dineduc.backend.app.dto.LessonDto
-import br.com.dineduc.backend.app.dto.ModuleDto
-import br.com.dineduc.backend.app.dto.TrailDto
-import br.com.dineduc.backend.service.facade.valueObject.MediaVO
-import br.com.dineduc.backend.service.facade.valueObject.LessonVO
-import br.com.dineduc.backend.service.facade.valueObject.ModuleVO
-import br.com.dineduc.backend.service.facade.valueObject.TrailVO
+import br.com.dineduc.backend.app.dto.*
+import br.com.dineduc.backend.service.facade.valueObject.*
 
 
 class ModuleMapper {
@@ -42,5 +36,29 @@ class ModuleMapper {
             }
             return null
         }
+
+        fun moduleTestDtoFromModuleTestsVO(moduleTestsVO: ModuleTestsVO) : ModuleTestDto {
+            return ModuleTestDto(moduleTestsVO.id,moduleTestsVO.title, moduleTestsVO.published_at, questionsDtoFromQuestionsVO(moduleTestsVO.questions))
+
+        }
+
+        fun questionsDtoFromQuestionsVO(questions : List<QuestionVO>? ) : List<QuestionDto> {
+            questions?.let{
+                return (questions.map {
+                    QuestionDto(it.id, it.question, answerDtoFromAnswerVO(it.answer))
+                }).toList()
+            }
+            return listOf<QuestionDto>()
+        }
+
+        fun answerDtoFromAnswerVO(answers : List<AnswerVO>? ) : List<AnswerDto> {
+            answers?.let{
+                return (answers.map {
+                    AnswerDto(it.id, it.text)
+                }).toList()
+            }
+            return listOf<AnswerDto>()
+        }
+
     }
 }

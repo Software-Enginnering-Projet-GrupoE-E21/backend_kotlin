@@ -2,6 +2,7 @@ package br.com.dineduc.backend.app.impl
 
 import br.com.dineduc.backend.app.ModulesApplication
 import br.com.dineduc.backend.app.dto.ModuleDto
+import br.com.dineduc.backend.app.dto.ModuleTestDto
 import br.com.dineduc.backend.app.mapper.ModuleMapper
 import br.com.dineduc.backend.service.ModulesService
 import org.springframework.stereotype.Component
@@ -20,5 +21,9 @@ class ModulesApplicationImpl (
         return ModuleMapper.moduleDtoFromModuleVO(module)
     }
 
+    override fun getModuleTest(moduleId: Long): ModuleTestDto {
+        val moduleTest = modulesService.getModuleTest(moduleId)
+        return ModuleMapper.moduleTestDtoFromModuleTestsVO(moduleTest)
+    }
 
 }
