@@ -1,7 +1,7 @@
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Gradlew Build v3
+name: Gradlew Build v4
 
 on:
   release:
@@ -31,12 +31,12 @@ jobs:
     - name: Upload artifact
       uses: PeerXu/upload-asset@v1
       with:
-        file: build/libs/backend-0.0.1-SNAPSHOT.war
+        file: build/libs/*.jar
         os: linux
         arch: amd64
         with_tag: true
         with_sha1: true
-        suffix: .war
+        suffix: .jar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
