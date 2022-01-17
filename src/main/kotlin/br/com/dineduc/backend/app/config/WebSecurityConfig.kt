@@ -44,7 +44,7 @@ class WebSecurityConfig (
 
     override fun configure(http: HttpSecurity?) {
         if(http == null) return
-        http.authorizeRequests()
+        http.cors().and().authorizeRequests()
             .antMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
             .antMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
             .anyRequest().authenticated()
