@@ -25,7 +25,7 @@ class AuthApplicationImpl(
 ): AuthApplication {
     override fun createUser(registerUserDtoRequest: RegisterUserDtoRequest): Boolean {
         val user = userService.createUserStudent(AuthMapper.registerToUser(registerUserDtoRequest,passwordEncoder), registerUserDtoRequest.inviteCode)
-        mailSenderService.sendEmail(AuthMapper.registerUserToMail(user))
+//        mailSenderService.sendEmail(AuthMapper.registerUserToMail(user))
         return true
     }
 

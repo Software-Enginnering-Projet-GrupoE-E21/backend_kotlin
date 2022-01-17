@@ -8,13 +8,12 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/strapi?useSSL=false
+    url: jdbc:mysql://localhost:3306/strapi?allowPublicKeyRetrieval=true&useSSL=false
     username: strapi
     password: strapi
 jwt:
   expiration: 86400000
   secret: VMAYJfMr6b3b5vHo0TiGLPEBjHndLuJRT8OElbanBiGCBmlOI8j0ts3EkyzrUBdlK88NGx7LEumdzQt2ACoySlON2Fp6lTASCeXx0F3RQvKF6VftFLBgbcBNRm7qUyfDExiVrzf0bAPGsEzxWFuCoIU7T9JfquKyOCfXSUukSKe9PmJiL923hwSbzVfYd9E7td875ViQ5rxQuZrtrGZuLkePbKTt5qpBFKVqXCFF2ezqHxANZH9BR8X6iYZHzJTG
-
 
 dineduc:
   cms:
