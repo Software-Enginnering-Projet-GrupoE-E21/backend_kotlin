@@ -35,8 +35,6 @@ dependencies {
     implementation("org.hibernate:hibernate-core:5.6.1.Final")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign:3.0.5")
     implementation("io.github.openfeign:feign-okhttp:11.7")
-    implementation("io.awspring.cloud:spring-cloud-aws-dependencies:2.3.2")
-    implementation("io.awspring.cloud:spring-cloud-starter-aws-ses:2.3.2")
     implementation("org.thymeleaf:thymeleaf")
     implementation("org.thymeleaf:thymeleaf-spring5")
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.5.6")
