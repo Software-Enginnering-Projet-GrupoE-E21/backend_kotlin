@@ -25,7 +25,8 @@ class ModuleServiceImpl  (
 
             moduleVO.lessons?.onEach {
                 val parsedTree = MarkdownParser(flavour).buildMarkdownTreeFromString(it.content)
-                val html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                var html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                html.replace("\n", "<br>")
                 it.content = html
             }
 
@@ -45,7 +46,8 @@ class ModuleServiceImpl  (
         modulesVO.forEach { vo ->
             vo.lessons?.onEach {
                 val parsedTree = MarkdownParser(flavour).buildMarkdownTreeFromString(it.content)
-                val html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                var html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                html.replace("\n", "<br>")
                 it.content = html
             }
             }
