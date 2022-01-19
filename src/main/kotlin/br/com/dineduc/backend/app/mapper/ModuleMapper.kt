@@ -65,7 +65,7 @@ class ModuleMapper {
         fun answerDtoFromAnswerVO(answers : List<AnswerVO>? ) : List<AnswerDto> {
             answers?.let{
                 return (answers.map {
-                    AnswerDto(it.id, it.text)
+                    AnswerDto(it.id, it.text, it.correct)
                 }).toList()
             }
             return listOf<AnswerDto>()

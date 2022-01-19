@@ -21,4 +21,5 @@ data class QuestionDto (
 data class AnswerDto (
     val id : Long,
     val text: String,
+    val correct : Boolean
     )
