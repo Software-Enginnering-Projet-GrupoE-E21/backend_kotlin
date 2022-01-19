@@ -8,5 +8,6 @@ data class ModuleVO (
     val created_at: String,
     val trail: TrailVO?,
     val banner: MediaVO?,
-    val lessons: List<LessonVO>?
+    val lessons: List<LessonVO>?,
+    val module_test : ModuleTestsVO?
     )

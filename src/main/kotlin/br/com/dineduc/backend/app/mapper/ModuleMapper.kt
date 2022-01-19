@@ -9,11 +9,14 @@ class ModuleMapper {
 
         fun moduleDtoFromModuleVO(moduleVO: ModuleVO): ModuleDto {
             val lessons = moduleVO.lessons?.map { lessonDtoFromLessonVO(it) }
-            return  ModuleDto(moduleVO.id, moduleVO.title, moduleVO.description, moduleVO.published_at, trailDtoFromTrailVO(moduleVO.trail), bannerDtoFromMediaVO(moduleVO.banner), lessons?.toList())
+            return  ModuleDto(moduleVO.id, moduleVO.title, moduleVO.description, moduleVO.published_at,
+                trailDtoFromTrailVO(moduleVO.trail), bannerDtoFromMediaVO(moduleVO.banner), lessons?.toList(),
+                moduleTestListFromModuleTestVO(moduleVO.module_test))
         }
 
         fun lessonDtoFromLessonVO(lessonVO: LessonVO): LessonDto {
-            return LessonDto(lessonVO.id, lessonVO.title, lessonVO.description, lessonVO.content, bannerDtoFromMediaVO(lessonVO.banner), videoDtoFromMediaVO(lessonVO.video) )
+            return LessonDto(lessonVO.id, lessonVO.title, lessonVO.description, lessonVO.content,
+                bannerDtoFromMediaVO(lessonVO.banner), videoDtoFromMediaVO(lessonVO.video) )
         }
 
         fun bannerDtoFromMediaVO(bannerVO: MediaVO?): MediaDto? {
@@ -37,7 +40,15 @@ class ModuleMapper {
             return null
         }
 
+        fun moduleTestListFromModuleTestVO(moduleTestsVO: ModuleTestsVO?) : ModuleTestDto? {
+            moduleTestsVO?.let {
+                return moduleTestDtoFromModuleTestsVO(it)
+            }
+            return null
+        }
+
         fun moduleTestDtoFromModuleTestsVO(moduleTestsVO: ModuleTestsVO) : ModuleTestDto {
+
             return ModuleTestDto(moduleTestsVO.id,moduleTestsVO.title, moduleTestsVO.published_at, questionsDtoFromQuestionsVO(moduleTestsVO.questions))
 
         }
