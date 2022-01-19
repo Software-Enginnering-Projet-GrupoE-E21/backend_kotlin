@@ -7,6 +7,10 @@ import br.com.dineduc.backend.service.ModulesService
 import br.com.dineduc.backend.service.facade.valueObject.ModuleTestsVO
 import br.com.dineduc.backend.service.facade.valueObject.ModuleVO
 import feign.FeignException
+import org.intellij.markdown.flavours.MarkdownFlavourDescriptor
+import org.intellij.markdown.flavours.commonmark.CommonMarkFlavourDescriptor
+import org.intellij.markdown.html.HtmlGenerator
+import org.intellij.markdown.parser.MarkdownParser
 import org.springframework.stereotype.Service
 
 
@@ -16,7 +20,16 @@ class ModuleServiceImpl  (
         ): ModulesService {
     override fun getModule(moduleId: Long): ModuleVO {
         try{
-            return cmsClient.getModule(moduleId)
+            val moduleVO = cmsClient.getModule(moduleId)
+            val flavour = CommonMarkFlavourDescriptor()
+
+            moduleVO.lessons?.onEach {
+                val parsedTree = MarkdownParser(flavour).buildMarkdownTreeFromString(it.content)
+                val html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                it.content = html
+            }
+
+            return moduleVO
         }catch (exception : FeignException){
             if (exception.status() == 404){
                 throw NotFoundException("Module was not found, try a different id or try again later",  "Not found error")
@@ -26,7 +39,18 @@ class ModuleServiceImpl  (
     }
 
     override fun getModules(): List<ModuleVO> {
-        return cmsClient.getModules()
+        val modulesVO = cmsClient.getModules()
+        val flavour = CommonMarkFlavourDescriptor()
+
+        modulesVO.forEach { vo ->
+            vo.lessons?.onEach {
+                val parsedTree = MarkdownParser(flavour).buildMarkdownTreeFromString(it.content)
+                val html = HtmlGenerator(it.content, parsedTree, flavour).generateHtml()
+                it.content = html
+            }
+            }
+        return modulesVO
+
     }
 
     override fun getModuleTest (moduleId: Long): ModuleTestsVO {

@@ -37,6 +37,7 @@ dependencies {
     implementation("io.github.openfeign:feign-okhttp:11.7")
     implementation("org.thymeleaf:thymeleaf")
     implementation("org.thymeleaf:thymeleaf-spring5")
+    implementation("org.jetbrains:markdown:0.2.4")
     developmentOnly("org.springframework.boot:spring-boot-devtools:2.5.6")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat:2.5.6")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.5.6")
