@@ -14,13 +14,13 @@ class ModulesController (
         ) {
 
     @GetMapping()
-    fun checkRequest() : ResponseEntity<List<ModuleDto>> {
+    fun listModules() : ResponseEntity<List<ModuleDto>> {
         val response = modulesApplication.getModules()
         return ResponseEntity.ok(response)
     }
 
     @GetMapping("/{id}")
-    fun checkRequest(@PathVariable(value = "id")  id: Long) : ResponseEntity<ModuleDto> {
+    fun getModule(@PathVariable(value = "id")  id: Long) : ResponseEntity<ModuleDto> {
         val response = modulesApplication.getModule(id)
         return ResponseEntity.ok(response)
     }

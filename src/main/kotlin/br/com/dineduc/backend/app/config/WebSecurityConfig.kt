@@ -15,6 +15,9 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 
 @Configuration
@@ -42,9 +45,21 @@ class WebSecurityConfig (
         auth?.userDetailsService(authenticationService)?.passwordEncoder(encoder())
     }
 
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource? {
+        val configuration = CorsConfiguration()
+        configuration.allowedOrigins = listOf("*")
+        configuration.allowedMethods = listOf("GET", "POST", "HEAD", "OPTIONS", "PUT", "DELETE")
+        configuration.allowedHeaders = listOf("*")
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", configuration)
+        return source
+    }
+
     override fun configure(http: HttpSecurity?) {
         if(http == null) return
-        http.cors().and().authorizeRequests()
+        http.cors()
+            .and().authorizeRequests()
             .antMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
             .antMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
             .anyRequest().authenticated()
