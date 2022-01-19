@@ -18,8 +18,9 @@ class AuthenticationService (
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val user:User? = userRepository.getUserByEmailAddress(username)
-        user?.let{
+        val user:Set<User>? = userRepository.getUserByEmailAddress(username)
+
+        user?.first()?.let{
             return it
         }
         throw UsernameNotFoundException("User not found")

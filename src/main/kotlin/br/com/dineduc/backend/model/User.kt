@@ -16,6 +16,7 @@ data class User(
     var id: Long,
     var firstname: String,
     var lastname: String,
+    @Column(unique=true)
     var emailAddress: String,
     var document: String,
     var birthdate: Date,

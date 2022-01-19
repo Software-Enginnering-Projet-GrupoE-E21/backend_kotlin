@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserRepository : CrudRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.emailAddress = :emailAddress")
-    fun getUserByEmailAddress(@Param("emailAddress") emailAddress: String?): User?
+    fun getUserByEmailAddress(@Param("emailAddress") emailAddress: String?): Set<User>?
 
     @Query("SELECT u FROM User u WHERE u.emailAddress = :emailAddress or u.document = :document")
     fun getUserByEmailAddressOrDocument(@Param("emailAddress") emailAddress: String?, @Param("document") document: String?): User?
